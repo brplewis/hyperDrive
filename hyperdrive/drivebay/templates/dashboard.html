@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard | {{header}}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-3">
+        <form action="/show_ticket/">
+          <input type="text" placeholder="View Ticket.." name="ticket">
+        </form>
+        <form action="/" method="post">
+
+          <div class="form-field">{{ form.client(value='All Clients')}}
+        {{ form.status }}
+        {{ form.assigned }}
+
+          {{ form.csrf_token }}
+          {{ form.submit }} </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <h2>{{ message }}</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Ticket</th>
+          <th>Production / Department </th>
+          <th>Client Name</th>
+          <th>Suite / PC</th>
+          <th>Issue</th>
+          <th>Status</th>
+          <th>Assigned</th>
+          <th>Urgency</th>
+          <th>Deadline</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in all_tickets %}
+          <tr>
+            <td> <a href="show_ticket/?ticket={{ticket.id}}"> {{ ticket.id }} </a> </td>
+            {% set client_value = eval(ticket.client)[1] %}
+            <td> {{ client_value }} </td>
+            <td> {{ ticket.client_name }} </td>
+            <td> {{ ticket.suite }}</td>
+            <td> {{ ticket.issue }} </td>
+            <td> {{ ticket.status }} </td>
+            {% set assigned = eval(ticket.assigned)[1] %}
+            <td> {{ assigned }} </td>
+            <td> {{ ticket.urgency }} </td>
+            {% if ticket.deadline < now and ticket.status == 'Open' %}
+              <td style="color:white; background-color:red; opacity:0.6;"> {{ ticket.deadline }}</td>
+            {% else %}
+              <td>{{ ticket.deadline }}</td>
+            {% endif %}
+            <td> {{ ticket.last_update }} </td>
+          </tr>
+        {% endfor %}
+
+
+      </tbody>
+    </table>
+  </div>
+</main>
+</div>
+</div>
+{% endblock %}
