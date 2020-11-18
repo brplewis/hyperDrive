@@ -30,37 +30,33 @@
     <table class="table table-striped table-sm">
       <thead>
         <tr>
-          <th>Ticket</th>
-          <th>Production / Department </th>
-          <th>Client Name</th>
-          <th>Suite / PC</th>
-          <th>Issue</th>
+          <th>Drive ID</th>
+          <th>Tag</th>
+          <th>Drive Name</th>
+          <th>Client</th>
+          <th>Serial Num</th>
+          <th>Location</th>
           <th>Status</th>
           <th>Assigned</th>
-          <th>Urgency</th>
-          <th>Deadline</th>
           <th>Last Updated</th>
+          <th>Logged In</th>
         </tr>
       </thead>
       <tbody>
-        {% for ticket in all_tickets %}
+        {% for drive in all_tickets %}
           <tr>
-            <td> <a href="show_ticket/?ticket={{ticket.id}}"> {{ ticket.id }} </a> </td>
-            {% set client_value = eval(ticket.client)[1] %}
+            <td> <a href="show_ticket/?ticket={{ticket.id}}"> {{ drive.id }} </a> </td>
+            <td> {{ drive.tag }} </td>
+            <td> {{ drive.drive_name }} </td>
+            {% set client_value = eval(drive.client)[1] %}
             <td> {{ client_value }} </td>
-            <td> {{ ticket.client_name }} </td>
-            <td> {{ ticket.suite }}</td>
-            <td> {{ ticket.issue }} </td>
-            <td> {{ ticket.status }} </td>
-            {% set assigned = eval(ticket.assigned)[1] %}
+            <td> {{ drive.drive_serial }} </td>
+            <td> {{ drive.location }}</td>
+            <td> {{ drive.status }} </td>
+            {% set assigned = eval(drive.assigned)[1] %}
             <td> {{ assigned }} </td>
-            <td> {{ ticket.urgency }} </td>
-            {% if ticket.deadline < now and ticket.status == 'Open' %}
-              <td style="color:white; background-color:red; opacity:0.6;"> {{ ticket.deadline }}</td>
-            {% else %}
-              <td>{{ ticket.deadline }}</td>
-            {% endif %}
-            <td> {{ ticket.last_update }} </td>
+            <td> {{ drive.last_update }} </td>
+            <td>{{ ticket.logged_in }}</td>
           </tr>
         {% endfor %}
 

@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="70e30391-f698-409b-8081-f9e14278f31a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hyperdrive/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperdrive/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hyperdrive/drivebay/drivebay.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperdrive/drivebay/drivebay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hyperdrive/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/hyperdrive/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hyperdrive/drivebay/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/hyperdrive/drivebay/templates/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hyperdrive/templates/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/hyperdrive/templates/navigation.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

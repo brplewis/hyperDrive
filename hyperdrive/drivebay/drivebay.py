@@ -17,14 +17,17 @@ drivebay_bp = Blueprint(
 
 print(auth.USER_ID)
 
+USER_NAME = ""
 
 @app.context_processor
 def insert_user():
+    global USER_NAME
     if auth.USER_ID == None:
         return dict(user='No User')
     else:
         id = int(auth.USER_ID)
         user = User.query.get(id)
+        USER_NAME = user.name
         return dict(user=user.name)
 
 
@@ -165,39 +168,38 @@ def add():
     if check_user():
         return redirect(url_for('drivebay_bp.pending'))
 
-    client_list = [(client.id, client.client) for client in clients.query.all()]
+    client_list = [(client.id, client.client) for client in Clients.query.all()]
     assigned_list = [(user.id, user.name) for user in User.query.all()]
     form = forms.AddTicket()
     form.client.choices = client_list
     form.assigned.choices = assigned_list
     if request.method == 'POST':
         if form.validate_on_submit():
-            new_ticket = support_ticket(
+            new_drive = Drives(
                 # client = dict(form.client.choices).get(form.client.data),
                 client=str((request.form.get('client'), dict(form.client.choices).get(form.client.data))),
-                client_name=request.form.get('client_name'),
-                suite=request.form.get('suite'),
-                issue=request.form.get('issue'),
+                tag=request.form.get('tag'),
+                drive_name=request.form.get('drive_name'),
+                drive_serial=request.form.get('drive_serial'),
                 status=request.form.get('status'),
                 assigned=str((request.form.get('assigned'), dict(form.assigned.choices).get(form.assigned.data))),
-                log=str(log_input(request.form.get('log'), entry_type=0)),
-                deadline=request.form.get('deadline'),
-                created=datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+                notes=str(log_input(request.form.get('notes'), entry_type=0)),
+                location=request.form.get('location'),
+                logged_in=datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
                 last_update=datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
-                urgency=request.form.get('urgency'),
-                created_by='Bob'  # Replace with user_name varible after user function added
+                created_by=USER_NAME
 
             )
-            db.session.add(new_ticket)  # Adds new User record to database
+            db.session.add(new_drive)  # Adds new User record to database
             db.session.commit()  # Commits all changes
 
-            return redirect(f"/show_ticket/?ticket={new_ticket.id}")
+            return redirect(f"/show_drive/?drive={new_drive.id}")
 
     return render_template('add.html',
-                           title="Add Ticket", form=form)
+                           title="Add Drive", form=form)
 
 
-@drivebay_bp.route('/show_ticket/', methods=['POST', 'GET'])
+@drivebay_bp.route('/show_drive/', methods=['POST', 'GET'])
 @login_required
 def show_drive():
     if check_user():
