@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Manage Users</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-3">
+
+    </div>
+  </div>
+</div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Account Type</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user_object in user_accounts %}
+          <tr>
+            <td> {{ user_object.name }} </td>
+            <td> {{ user_object.email }} </td>
+            <td> <a href="#"> change </a> </td>
+            {% if user_object.account_type == 'Pending' %}
+              <td style="color:white; background-color:red; opacity:0.6;"> {{ user_object.account_type }}</td>
+            {% else %}
+              <td>{{ user_object.account_type }}</td>
+            {% endif %}
+            <td> <a href="#"> edit </a> </td>
+
+          </tr>
+        {% endfor %}
+
+
+      </tbody>
+    </table>
+  </div>
+</main>
+</div>
+</div>
+{% endblock %}

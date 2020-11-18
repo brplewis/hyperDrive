@@ -1,0 +1,150 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"> Edit Ticket </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid">
+  <form method="POST" action="/edit_ticket/{{id}}">
+    <div class="row">
+      <div class="col-sm-4">
+            <div class="form-field">{{ form.client.label }} {{ form.client}}
+              {% if form.client.errors %}
+              <ul class="errors">
+              	{% for error in form.client.errors %}
+              		<li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+            <div class="form-field">{{ form.client_name.label }} {{ form.client_name }}
+              {% if form.client_name.errors %}
+              <ul class="errors">
+              	{% for error in form.client_name.errors %}
+              		<li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+            <div class="form-field">{{ form.suite.label }} {{ form.suite }}
+              {% if form.suite.errors %}
+              <ul class="errors">
+              	{% for error in form.suite.errors %}
+              		<li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-field">{{ form.issue.label }} {{ form.issue }}
+          {% if form.issue.errors %}
+          <ul class="errors">
+          	{% for error in form.issue.errors %}
+          		<li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-field">{{ form.assigned.label }} {{ form.assigned }}
+          {% if form.assigned.errors %}
+          <ul class="errors">
+            {% for error in form.assigned.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-field">{{ form.status.label }} {{ form.status }}
+          {% if form.status.errors %}
+          <ul class="errors">
+            {% for error in form.status.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-field">{{ form.urgency.label }} {{ form.urgency }}
+          {% if form.urgency.errors %}
+          <ul class="errors">
+            {% for error in form.urgency.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-field">{{ form.deadline.label }} {{ form.deadline }}
+          {% if form.deadline.errors %}
+          <ul class="errors">
+            {% for error in form.deadline.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-9 col-md-9">
+        {{ form.csrf_token }}
+        {{ form.submit }}
+      </div>
+    </div>
+  </form>
+</div>
+<br>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Edit Log</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+
+        {% for message in ticket_log %}
+        <tr>
+        <td>{{message[0]}} {{message[1]}}</td>
+        <td> <a href="/edit_log/{{id}}_{{loop.index -1}}">edit</a> </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+        </table>
+</div>
+
+{% endblock %}

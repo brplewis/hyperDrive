@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"> Add Client </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid">
+  <form method="POST" action="/add_client">
+    <div class="row">
+      <div class="col-sm-4">
+            <div class="form-field">{{ form.client.label }} {{ form.client }}
+              {% if form.client.errors %}
+              <ul class="errors">
+              	{% for error in form.client.errors %}
+              		<li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+      </div>
+      </div>
+      <br>
+      <div class="row">
+      <div class="col-sm-4">
+        {{ form.csrf_token }}
+        {{ form.submit }}
+      </div>
+    </div>
+  </form>
+</div>
+
+<br>
+<hr>
+<br>
+
+<h2> All Clients </h2>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Clients</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in all_clients %}
+        <tr>
+          <td> {{ client.client }} </td>
+        </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

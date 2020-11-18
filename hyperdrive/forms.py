@@ -3,8 +3,8 @@ from wtforms import StringField, TextField, SubmitField, SelectField, TextAreaFi
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
-from wtforms.validators import DataRequired, Length, Email, EqualTo ,Optional
-from .models import db, support_ticket, clients
+from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional
+from .models import db, Drives, Clients
 
 
 class DashboardSearch(FlaskForm):
@@ -59,6 +59,7 @@ class EditTicket(FlaskForm):
                                  ('Low', 'Low')])
 
     submit = SubmitField('Submit')
+
 
 class EditLog(FlaskForm):
     log = TextAreaField('Ticket Log', [

@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">View Ticket</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <form action="/edit_ticket/{{id}}" method="get">
+          <button type="submit" class="btn btn-sm btn-outline-secondary" name="editBtn" value="send">Edit</button>
+        </form>
+        <form action="/update_ticket/{{ticket.id}}" method="get">
+        <button type="submit" class="btn btn-sm btn-outline-secondary" name="updateBtn" value="send">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>{{title}}</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Production / Department: {{ client }}</td>
+        </tr>
+        <tr>
+          <td>Client Name: {{ ticket.client_name }}</td>
+        </tr>
+        <tr>
+          <td>Suite / PC: {{ ticket.suite }}</td>
+        </tr>
+        <tr>
+          <td>Issue: {{ ticket.issue }}</td>
+        </tr>
+        <tr>
+          <td>Status: {{ ticket.status }}</td>
+        </tr>
+        <tr>
+          <td>Urgency: {{ ticket.urgency }}</td>
+        </tr>
+        <tr>
+          <td>Assigned: {{ assigned }}</td>
+        </tr>
+        <tr>
+          <td>Deadline: {{ ticket.deadline }}</td>
+        </tr>
+        <tr>
+          <td>Created: {{ ticket.created }}</td>
+        </tr>
+        <tr>
+          <td>Created By: {{ ticket.created_by }}</td>
+        </tr>
+        <tr>
+          <td>Last Updated: {{ ticket.last_update }}</td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Log</th>
+        <th></th>
+      </tr>
+  </thead>
+    <tbody>
+      {% for message in ticket_log %}
+      <tr>
+      <td>{{message[0]}} {{message[1]}}</td>
+      <td> <a href="/edit_log/{{id}}_{{loop.index -1}}">edit</a> </td>
+      </tr>
+      {% endfor %}
+
+  </tbody>
+</table>
+
+
+{% endblock %}

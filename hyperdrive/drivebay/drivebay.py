@@ -111,8 +111,8 @@ def dashboard():
         if assigned == 'All Users':
             filter_code += 1
         else:
-            drives = Drives.query.filter(support_ticket.assigned.contains(assigned)).all()
-            if len(tickets) > 0:
+            drives = Drives.query.filter(drivebay.assigned.contains(assigned)).all()
+            if len(drives) > 0:
                 assigned = drives[0].assigned
             else:
                 assigned = None
@@ -123,8 +123,8 @@ def dashboard():
         if client_select == 'All Clients':
             filter_code += 5
         else:
-            drives = Drives.query.filter(support_ticket.client.contains(client_select)).all()
-            if len(tickets) > 0:
+            drives = Drives.query.filter(drivebay.client.contains(client_select)).all()
+            if len(drives) > 0:
                 client_select = drives[0].client
             else:
                 client_select = None
@@ -150,13 +150,12 @@ def dashboard():
         return render_template('dashboard.html', all_tickets=search_filter, clients=clients.query.all(),
                                show_clients=client_select,
                                title="Drive Bay", now=date.today(), form=form, eval=eval,
-                               description="Web interface for support tickets", header=f"{assigned} : {status}",
+                               description="Web interface for HyperDrive App", header=f"{assigned} : {status}",
                                show_status=f"{status}", show_assigned=f"{assigned}")
 
-    return render_template('dashboard.html', all_tickets=Drives.query.filter_by(status='Open').order_by(
-        Drives.deadline.asc()).order_by(support_ticket.urgency.asc()).all(),
+    return render_template('dashboard.html', all_tickets=Drives.query.filter_by(status='Open').order_by(Drives.logged_in.asc()).all(),
                            title="Ticket Support", now=date.today(), form=form, eval=eval,
-                           description="Web interface for support tickets", header='All Open',
+                           description="Web interface for HyperDrive App", header='All Open',
                            show_clients='All Clients', show_status="Open", show_assigned="All")
 
 
@@ -164,7 +163,7 @@ def dashboard():
 @login_required
 def add():
     if check_user():
-        return redirect(url_for('tickets_bp.pending'))
+        return redirect(url_for('drivebay_bp.pending'))
 
     client_list = [(client.id, client.client) for client in clients.query.all()]
     assigned_list = [(user.id, user.name) for user in User.query.all()]

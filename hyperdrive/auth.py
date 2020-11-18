@@ -21,7 +21,7 @@ auth_bp = Blueprint(
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('tickets_bp.dashboard'))
+        return redirect(url_for('drivebay_bp.dashboard'))
 
     form = LoginForm()
     # Validate login attempt
@@ -30,7 +30,7 @@ def login():
         if user and user.check_password(password=form.password.data):
             login_user(user)
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('tickets_bp.dashboard'))
+            return redirect(next_page or url_for('drivebay_bp.dashboard'))
         flash('Invalid username/password combination')
         return redirect(url_for('auth_bp.login'))
     return render_template(
@@ -57,7 +57,7 @@ def signup():
             db.session.add(user)
             db.session.commit()  # Create new user
             login_user(user)  # Log in as newly created user
-            return redirect(url_for('tickets_bp.dashboard'))
+            return redirect(url_for('drivebay_bp.dashboard'))
         flash('A user already exists with that email address.')
     return render_template(
         'signup.html',
